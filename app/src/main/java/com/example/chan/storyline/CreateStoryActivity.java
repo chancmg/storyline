@@ -90,7 +90,7 @@ public class CreateStoryActivity extends AppCompatActivity {
 
             } else {
                 Toast.makeText(this, "Title already exists", Toast.LENGTH_SHORT).show();
-
+                return;
             }
         } else {
             Toast.makeText(this, "please verify the content", Toast.LENGTH_SHORT).show();

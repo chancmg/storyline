@@ -8,6 +8,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.chan.storyline.Adapter.StoryAdapter;
@@ -55,24 +57,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadStoryData() {
+        storyList.clear();
       List<StoryDB> storiesList=  storyDBHelper.getAllStories();
 
       if(storiesList!=null&&!storiesList.isEmpty())
       {
           for(StoryDB story:storiesList)
           {
-              storyList.add(new Story(story.getStoryTitle(),story.getCreateUser(),String.valueOf(story.getRemainingWords())));
+              storyList.add(new Story(story.getStoryTitle(),story.getCreateUser(),"Remaining:"+String.valueOf(story.getRemainingWords())+"words"));
           }
 
 
       }
       else
       {
-          storyList.add(new Story("TestStory 1","Admin","450"));
-          storyList.add(new Story("TestStory 2","Admin","450"));
-          storyList.add(new Story("TestStory 3","Admin","450"));
-          storyList.add(new Story("TestStory 4","Admin","450"));
-          storyList.add(new Story("TestStory 1","Admin","450"));
+          storyList.add(new Story("No Data Found","",""));
+
       }
 
 
@@ -81,8 +81,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        loadStoryData();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mainmenu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.refresh:
+                loadStoryData();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 }

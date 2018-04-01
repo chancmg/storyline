@@ -114,7 +114,7 @@ public class StoryDBHelper extends SQLiteOpenHelper {
     }
 
     public boolean isStoryFound(String title) {
-        String query = "SELECT  * FROM " + StoryDB.STORY_TABLE_NAME + " WHERE " + StoryDB.STORY_TITLE + "=" + title;
+        String query = "SELECT  * FROM " + StoryDB.STORY_TABLE_NAME + " WHERE " + StoryDB.STORY_TITLE + "='" + title+"'";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
 
@@ -126,7 +126,7 @@ public class StoryDBHelper extends SQLiteOpenHelper {
         return false;
     }
     public int getStoryID(String title) {
-        String query = "SELECT  "+StoryDB.STORY_ID+ " FROM " + StoryDB.STORY_TABLE_NAME + " WHERE " + StoryDB.STORY_TITLE + "=" + title;
+        String query = "SELECT  "+StoryDB.STORY_ID+ " FROM " + StoryDB.STORY_TABLE_NAME + " WHERE " + StoryDB.STORY_TITLE + "='" + title+"'";
         SQLiteDatabase db = this.getReadableDatabase();
         System.out.println("get story ID");
         if(db==null)
